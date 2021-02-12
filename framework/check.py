@@ -9,9 +9,9 @@ def _response_general_check(response, expected_code):
 
 
 @allure.step
-def check_get_all_posts_response(response, get_len):
+def check_get_all_posts_response(response, etalon_len):
     _response_general_check(response, expected_code=codes.ok)
-    assert_that(len(response.json()), equal_to(get_len), 'Error len() all post')
+    assert_that(len(response.json()), equal_to(etalon_len), 'Error len() all post')
 
 
 @allure.step

@@ -1,6 +1,7 @@
 import allure
 from framework.check import *
 from framework.jsonplaceholder_client import Client
+from config import etalon_len_posts, etalon_len_users
 import pytest
 
 
@@ -9,12 +10,11 @@ class TestGetPosts:
 
     @allure.title('Positive. Get all posts')
     def test_get_all_posts(self):
-        get_len = 100
         response = Client().get_all_posts()
-        check_get_all_posts_response(response, get_len)
+        check_get_all_posts_response(response, etalon_len_posts)
 
     @allure.title('Positive. Get post by id')
-    @pytest.mark.parametrize('post_id', [2])
+    @pytest.mark.parametrize('post_id', [2, 5])
     def test_get_posts_by_id(self, post_id):
         response = Client().get_post_by_id(post_id)
         check_get_posts_by_id_response(response, post_id)
@@ -39,9 +39,8 @@ class TestGetPosts:
 
     @allure.title('Positive. Get all users')
     def test_get_all_users(self):
-        get_len = 10
         response = Client().get_all_users()
-        check_get_all_posts_response(response, get_len)
+        check_get_all_posts_response(response, etalon_len_users)
 
     @allure.title('Positive. Check equal values')
     def test_get_equal_values(self, generate_post_id):
