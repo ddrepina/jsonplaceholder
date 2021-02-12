@@ -35,7 +35,6 @@ def check_add_new_post(data_json, response):
     for elem in response.json():
         if elem['userId'] == data_json['userId']:
             elem.pop('id')
-            # Сравнение двух словарей так же можно было бы сдеалть через библиотеку DeepDiff
             intersection = set(elem.items()) & set(data_json.items())
             if intersection == set(data_json.items()) :
                 flag = True
@@ -54,3 +53,13 @@ def check_get_posts_by_userid(response, user_id):
         res_user_id = response.json()['userId']
     assert_that(res_user_id, equal_to(user_id),
                 f'Error check target id = {user_id} and received id = {res_user_id}')
+
+
+@allure.step
+def check_equal_values_response(response, response_filters):
+    _response_general_check(response, expected_code=codes.ok)
+    _response_general_check(response_filters, expected_code=codes.ok)
+    assert_that(response.json(), equal_to(response_filters.json()),
+                f'Error check equal response one level of nested route= {response.json()} and'
+                f'\ filters = {response_filters.json()}')
+

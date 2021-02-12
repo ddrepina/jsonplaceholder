@@ -32,3 +32,11 @@ class Client:
     @allure.step
     def get_posts_by_user_id(self, user_id: int):
         return self._get(path=f'/posts?userId={user_id}')
+
+    @allure.step
+    def get_comments_one_level_postid(self, post_id: int):
+        return self._get(path=f'/posts/{post_id}/comments')
+
+    @allure.step
+    def get_comments_filter_postid(self, post_id: int):
+        return self._get(path=f'/comments?postId={post_id}')
